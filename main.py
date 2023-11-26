@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QMainWindow,QMessageBox
+from PyQt5.QtWidgets import QMainWindow,QMessageBox,QInputDialog
 from ui import Ui_MainWindow
 from random import*
 import string
@@ -19,6 +19,8 @@ class NoteWindow(QMainWindow):
         self.ui.pushButton_2.clicked.connect(self.add_note)
         self.ui.pushButton.clicked.connect(self.save_note)
         self.ui.pushButton_3.clicked.connect(self.del_note)
+        self.ui.pushButton_4.clicked.connect(self.add_tag)
+        self.ui.pushButton_5.clicked.connect(self.del_tag)
 
     def read_notes(self):
         try:
@@ -55,8 +57,10 @@ class NoteWindow(QMainWindow):
     def save_note(self):
         title = self.ui.lineEdit.text()
         text = self.ui.textEdit.toPlainText()
-
-        self.notes[title] = {"текст": text, "теги": []}
+        if title not in self.notes:
+            self.notes[title] = {"текст": text, "теги": []}
+        else:
+            self.notes[title]["текст"] = text
         self.save_file()
         self.ui.listWidget.clear()
         self.ui.listWidget.addItems(self.notes)
@@ -70,9 +74,26 @@ class NoteWindow(QMainWindow):
             self.ui.listWidget.addItems(self.notes)
             self.add_note()
 
-
-
-
+    def add_tag(self):
+        title = self.ui.lineEdit.text()
+        tag_title = self.ui.lineEdit_2.text()
+        if tag_title != "" and title != "":
+            self.notes[title]["теги"].append(tag_title)
+            self.ui.lineEdit_2.clear()
+            self.ui.listWidget_2.clear()
+            self.ui.listWidget_2.addItems(self.notes[title]["теги"])
+        
+    def del_tag(self):
+        title = self.ui.lineEdit.text()
+        try:
+            tag_title = self.ui.listWidget_2.selectedItems()[0].text()
+        except:
+            tag_title = None
+        if tag_title and title != "":
+            self.notes[title]["теги"].remove(tag_title)
+            self.save_file()
+            self.ui.listWidget_2.clear()
+            self.ui.listWidget_2.addItems(self.notes[title]["теги"])
 
 
 app = QApplication([])

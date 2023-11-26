@@ -76,6 +76,12 @@ class Ui_MainWindow(object):
         self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_2.setGeometry(QtCore.QRect(20, 490, 113, 20))
         self.lineEdit_2.setObjectName("lineEdit_2")
+        self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_7.setGeometry(QtCore.QRect(230, 530, 91, 23))
+        self.pushButton_7.setStyleSheet("background-color: orange;\n"
+"border: 2px solid white;\n"
+"border-radius: 10px;")
+        self.pushButton_7.setObjectName("pushButton_7")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 877, 21))
@@ -99,6 +105,7 @@ class Ui_MainWindow(object):
         self.pushButton_4.setText(_translate("MainWindow", "Додати тег"))
         self.pushButton_5.setText(_translate("MainWindow", "Видалити тег"))
         self.pushButton_6.setText(_translate("MainWindow", "Пошук"))
+        self.pushButton_7.setText(_translate("MainWindow", "Шукати тег"))
 
 
 if __name__ == "__main__":
